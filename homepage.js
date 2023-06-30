@@ -18,12 +18,12 @@ function renderCharacters(characters) {
         const species = document.createElement('p');
         const btnMore = document.createElement('a');    
         const imgBase = character.image
-        div.classList = 'card'
+        div.classList = 'card col-4'
         image.classList = 'card-img'
         btnMore.classList = 'btn btn-primary'    
         image.src = `data:image/png;base64,${imgBase}`
-        name.innerText = `Name: ${character.name}`
-        species.innerText =`Description: ${character.shortDescription}`
+        name.innerText = character.name
+        species.innerText = character.shortDescription
         btnMore.textContent = 'Learn More'    
         div.appendChild(image)
         div.appendChild(name)
