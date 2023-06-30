@@ -33,14 +33,14 @@
                     <label for="nameHeroes" class="">le nom du heroes</label>
                     <input type="text" class="form-control" id="nameHeroes" name="name" aria-describedby="emailHelp">
                     <div class="text-end">
-                        <span>14</span>on max 20 char
+                        <span id="nameNumberMax">0</span>on max 20 char
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="shortDescription" class="">description courte</label>
                     <input type="text" class="form-control" id="shortDescription" name="shortDescription" aria-describedby="emailHelp">
                     <div class="text-end">
-                        <span>40</span>on max 70 char
+                        <span id="ShirDescriptionNumberMax">0</span>on max 70 char
                     </div>
                 </div>
                 <div class="mb-3">
@@ -54,18 +54,20 @@
                         <i class="fa-solid fa-align-center" data-value="JustifyCenter"></i>
                         <i class="fa-solid fa-align-right" data-value="JustifyRight"></i>
                     </div>
-                    <div name="description"  contenteditable="true"  class="border border-primary"></div>
+                    <div name="description" id="description" contenteditable="true"  class="border border-primary"></div>
                     <div class="text-end">
-                        <span>40</span>on max 350 char
+                        <span id="longDescriptionNumberMax">0</span>on max 350 char
                     </div> 
                 </div>
                 <div >
-                    <button type="submit" class="btn btn-primary">Save</button>
+                                   <button id="save" type="submit">Submit form</button>
+                   
                   <a href="#"class='btn btn-outline-danger'>Delete</a>
                 </div>
             </form>
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="formulaire.js"></script>
 </body>
 </html>
