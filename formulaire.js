@@ -85,7 +85,7 @@ function readFile() {
 document.querySelector('#save').onclick=function(e)
 {
     e.preventDefault();
-    readFile();
+    //readFile();
     let block = false;
     let inputs =document.querySelectorAll('input');
     for (input of inputs)
@@ -98,25 +98,20 @@ document.querySelector('#save').onclick=function(e)
         }
     }
 
-let image64;
-    const toDataURL = url => fetch(url)
-    .then(response => response.blob())
-    .then(blob => new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve(reader.result)
-      reader.onerror = reject
-      reader.readAsDataURL(blob)
-    })).then((data)=>{
-        let index = data.indexOf(',')
-         image64 = data.substring(index+1)
-    
-    })
+
+
+
+    // test 
+
+
+ 
+
   
        // let index = toDataURL(linkToApi).value.indexOf(',');
         //let image64 =toDataURL(linkToApi).value.substring(index + 1);
-    toDataURL(linkToApi)
 
-
+ 
+ 
   //console.log(document.querySelector('input[type=file]').files[0].name);
 /*let base64 ;
   toDataURL(document.querySelector('input[type=file]').files[0].name)
@@ -132,15 +127,28 @@ let image64;
     
     
 //let image64;// 
+
+
 //block = true
 
-
+  
     if(block == false)
     {
         let firstname = document.querySelector('#nameHeroes').value;
         let shortDescription = document.querySelector('#shortDescription').value;
         let longDescription = document.querySelector('#description').innerHTML;
-       
+     
+    const toDataURL = url =>  fetch(url)
+    .then(response => response.blob())
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onloadend = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(blob)
+    })).then((data)=>{
+        console.log('test'+ data.indexOf(','));
+        let index = data.indexOf(',')
+        image64 = data.substring(index+1)
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
               method: 'POST',
@@ -152,7 +160,31 @@ let image64;
                 name: firstname,
                 shortDescription:shortDescription,
                 description : longDescription,
-                image :image64
+                image : image64
+
+
+            }) 
+            });
+            const content = await rawResponse.json();
+          
+          })();
+
+    })
+
+
+    toDataURL(linkToApi)
+        /*(async () => {
+            const rawResponse = await fetch(linkToApi+ "characters", {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body:JSON.stringify({
+                name: firstname,
+                shortDescription:shortDescription,
+                description : longDescription,
+                image : image64
 
 
             }) 
@@ -160,7 +192,7 @@ let image64;
             const content = await rawResponse.json();
           
             console.log(content);
-          })();
+          })();*/
       
     }
 
