@@ -173,6 +173,9 @@ console.log(image64);*/
 
 let imageBase64;
 
+   
+
+   
 const toDataURL = url => fetch(url)
   .then(response => response.blob())
   .then(blob => new Promise((resolve, reject) => {
@@ -195,7 +198,7 @@ const toDataURL = url => fetch(url)
      
       
      
-toDataURL('https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0')
+toDataURL(document.querySelector('input[type=file]').files[0].name)
 .then(dataUrl => {
    
          let index = dataUrl.indexOf(',');
