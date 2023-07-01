@@ -129,26 +129,83 @@ document.querySelector('#save').onclick=function(e)
 //let image64;// 
 
 
-//block = true
 
+//block = true
+/*const toDataURL = url =>  fetch(url)
+.then(response => response.blob())
+.then(blob => new Promise((resolve, reject) => {
+  const reader = new FileReader()
+  reader.onloadend = () => resolve(reader.result)
+  reader.onerror = reject
+  reader.readAsDataURL(blob)
+})).then((data)=>{
+    let index = data.indexOf(',')
+    var image64 = data.substring(index+1)
+    
+})*/
+
+    //let image64;
+   // toDataURL(linkToApi);
+
+
+   // files addEventlisteener
   
+/*let image64;
+
+function readFile(files) {
+    //console.log(files)
+    if (!files || !files[0]) return;
+    const FR = new FileReader();
+
+     FR.addEventListener("load", function(evt) {
+        //console.log(evt);
+        let index = evt.target.result.indexOf(',');
+         image64 = evt.target.result.substring(index + 1);
+        
+    });
+    FR.readAsDataURL(files[0]);
+
+    
+}
+readFile(document.getElementById("formFileLg").files);
+console.log(image64);*/
+//document.getElementById("formFileLg").addEventListener("change", readFile);
+
+let imageBase64;
+
+   
+
+   
+const toDataURL = url => fetch(url)
+  .then(response => response.blob())
+  .then(blob => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsDataURL(blob)
+  }))
+
+
+
+
+
+    //block = true;
     if(block == false)
     {
         let firstname = document.querySelector('#nameHeroes').value;
         let shortDescription = document.querySelector('#shortDescription').value;
         let longDescription = document.querySelector('#description').innerHTML;
      
-    const toDataURL = url =>  fetch(url)
-    .then(response => response.blob())
-    .then(blob => new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve(reader.result)
-      reader.onerror = reject
-      reader.readAsDataURL(blob)
-    })).then((data)=>{
-        console.log('test'+ data.indexOf(','));
-        let index = data.indexOf(',')
-        image64 = data.substring(index+1)
+      
+     
+toDataURL(document.querySelector('input[type=file]').files[0].name)
+.then(dataUrl => {
+   
+         let index = dataUrl.indexOf(',');
+        image64 = dataUrl.substring(index + 1);
+        
+  //console.log('RESULT:', dataUrl)
+
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
               method: 'POST',
@@ -167,32 +224,9 @@ document.querySelector('#save').onclick=function(e)
             });
             const content = await rawResponse.json();
           
-          })();
-
-    })
-
-
-    toDataURL(linkToApi)
-        /*(async () => {
-            const rawResponse = await fetch(linkToApi+ "characters", {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body:JSON.stringify({
-                name: firstname,
-                shortDescription:shortDescription,
-                description : longDescription,
-                image : image64
-
-
-            }) 
-            });
-            const content = await rawResponse.json();
-          
             console.log(content);
-          })();*/
+          })();
+        })
       
     }
 
