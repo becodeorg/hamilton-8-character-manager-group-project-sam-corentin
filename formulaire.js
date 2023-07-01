@@ -101,75 +101,9 @@ document.querySelector('#save').onclick=function(e)
 
 
 
-    // test 
-
-
- 
-
-  
-       // let index = toDataURL(linkToApi).value.indexOf(',');
-        //let image64 =toDataURL(linkToApi).value.substring(index + 1);
-
- 
- 
-  //console.log(document.querySelector('input[type=file]').files[0].name);
-/*let base64 ;
-  toDataURL(document.querySelector('input[type=file]').files[0].name)
-    .then(dataUrl => {
-        base64 = dataUrl
-        
-      //console.log('RESULT:', dataUrl)
-    })
-    */
-    
-
-   //document.querySelector("#formFileLg").addEventListener("click", readFile);
-    
-    
-//let image64;// 
 
 
 
-//block = true
-/*const toDataURL = url =>  fetch(url)
-.then(response => response.blob())
-.then(blob => new Promise((resolve, reject) => {
-  const reader = new FileReader()
-  reader.onloadend = () => resolve(reader.result)
-  reader.onerror = reject
-  reader.readAsDataURL(blob)
-})).then((data)=>{
-    let index = data.indexOf(',')
-    var image64 = data.substring(index+1)
-    
-})*/
-
-    //let image64;
-   // toDataURL(linkToApi);
-
-
-   // files addEventlisteener
-  
-/*let image64;
-
-function readFile(files) {
-    //console.log(files)
-    if (!files || !files[0]) return;
-    const FR = new FileReader();
-
-     FR.addEventListener("load", function(evt) {
-        //console.log(evt);
-        let index = evt.target.result.indexOf(',');
-         image64 = evt.target.result.substring(index + 1);
-        
-    });
-    FR.readAsDataURL(files[0]);
-
-    
-}
-readFile(document.getElementById("formFileLg").files);
-console.log(image64);*/
-//document.getElementById("formFileLg").addEventListener("change", readFile);
 
 let imageBase64;
 
@@ -189,7 +123,7 @@ const toDataURL = url => fetch(url)
 
 
 
-    //block = true;
+    
     if(block == false)
     {
         let firstname = document.querySelector('#nameHeroes').value;
@@ -204,7 +138,7 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
         
-  //console.log('RESULT:', dataUrl)
+ 
 
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
