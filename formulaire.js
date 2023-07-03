@@ -3,6 +3,7 @@ let linkToApi = "https://character-database.becode.xyz/";
 
 function blocker(e,id,valueMax)
 {
+  
     let element = e.currentTarget;
     let value ;
     if(id == "longDescriptionNumberMax")
@@ -35,12 +36,9 @@ document.querySelector('#shortDescription').onkeyup = function(e)
 
 document.querySelector('#description').onkeyup = function(e)
 {
-
-    blocker(e,'longDescriptionNumberMax',350);
-
-   
+    
+    blocker(e,'longDescriptionNumberMax',350); 
 }
-
 
 
 
@@ -85,7 +83,6 @@ function readFile() {
 document.querySelector('#save').onclick=function(e)
 {
     e.preventDefault();
-    //readFile();
     let block = false;
     let inputs =document.querySelectorAll('input');
     for (input of inputs)
@@ -204,7 +201,7 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
         
-  //console.log('RESULT:', dataUrl)
+  
 
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
@@ -230,6 +227,19 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
       
     }
 
+}
+let icons = document.querySelectorAll('i');
+for(icon of icons )
+{
+  console.log(icon)
+  icon.onclick = function(e)
+  {
+    e.preventDefault();
+    let value = icon.getAttribute('data-value');
+    document.execCommand('bold')
+    //document.exeCommand(value);
+   
+  }
 }
 
 
