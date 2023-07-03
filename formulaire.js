@@ -3,14 +3,15 @@ let linkToApi = "https://character-database.becode.xyz/";
 
 function blocker(e,id,valueMax)
 {
+  
     let element = e.currentTarget;
     let value ;
-    if(id == "longDescriptionNumberMax")
+    /*if(id == "longDescriptionNumberMax")
     {   
          value = element.innerHTML
     }else{
          value = element.value;
-    }
+    }*/
    
     document.querySelector('#'+id).innerHTML =value.length;
     if(value.length>valueMax)
@@ -21,6 +22,21 @@ function blocker(e,id,valueMax)
     } 
 }
 
+
+  
+let  editor =ClassicEditor
+.create( document.querySelector( '#description' ) )
+editor.then( editor => {
+ 
+  editor.model.document.on('change:data', (evt, data) => { 
+   
+      document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
+  });
+
+} )
+
+   
+    
 document.querySelector('#nameHeroes').onkeyup = function(e)
 {
 
@@ -35,12 +51,9 @@ document.querySelector('#shortDescription').onkeyup = function(e)
 
 document.querySelector('#description').onkeyup = function(e)
 {
-
-    blocker(e,'longDescriptionNumberMax',350);
-
-   
+    
+    blocker(e,'longDescriptionNumberMax',350); 
 }
-
 
 
 
@@ -64,8 +77,6 @@ let image64;
 
 function readFile() {
     
-    console.log(this.files);
-
     if (!this.files || !this.files[0]) return;
     const FR = new FileReader();
    
@@ -85,25 +96,20 @@ function readFile() {
 document.querySelector('#save').onclick=function(e)
 {
     e.preventDefault();
-    //readFile();
     let block = false;
-    let inputs =document.querySelectorAll('input');
+    let inputs =document.querySelectorAll('.form-control');
+
     for (input of inputs)
     {
+       
         if(input.value =="")
         {
          input.style.background = 'red';
          block = true;
+         
             
         }
     }
-
-
-
-
-
-
-
 
 let imageBase64;
 
@@ -118,27 +124,26 @@ const toDataURL = url => fetch(url)
     reader.onerror = reject
     reader.readAsDataURL(blob)
   }))
+  
 
 
 
-
-
-    
     if(block == false)
     {
         let firstname = document.querySelector('#nameHeroes').value;
         let shortDescription = document.querySelector('#shortDescription').value;
-        let longDescription = document.querySelector('#description').innerHTML;
+        //let longDescription = document.querySelector('#description').innerHTML;
      
-      
+        
      
 toDataURL(document.querySelector('input[type=file]').files[0].name)
 .then(dataUrl => {
    
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
-        
- 
+
+
+        editor.then(editor=>{
 
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
@@ -150,18 +155,18 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
               body:JSON.stringify({
                 name: firstname,
                 shortDescription:shortDescription,
-                description : longDescription,
+                description :  editor.getData(),
                 image : image64
 
 
             }) 
             });
             const content = await rawResponse.json();
-          
-            console.log(content);
+            
           })();
         })
-      
+        })
+
     }
 
 }
