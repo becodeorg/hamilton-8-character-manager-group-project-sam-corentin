@@ -6,12 +6,12 @@ function blocker(e,id,valueMax)
   
     let element = e.currentTarget;
     let value ;
-    if(id == "longDescriptionNumberMax")
+    /*if(id == "longDescriptionNumberMax")
     {   
          value = element.innerHTML
     }else{
          value = element.value;
-    }
+    }*/
    
     document.querySelector('#'+id).innerHTML =value.length;
     if(value.length>valueMax)
@@ -27,8 +27,9 @@ function blocker(e,id,valueMax)
 let  editor =ClassicEditor
 .create( document.querySelector( '#description' ) )
 editor.then( editor => {
+ 
   editor.model.document.on('change:data', (evt, data) => { 
-     data =editor.getData();
+   
       document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
   });
 
@@ -76,8 +77,6 @@ let image64;
 
 function readFile() {
     
-    console.log(this.files);
-
     if (!this.files || !this.files[0]) return;
     const FR = new FileReader();
    
@@ -98,90 +97,21 @@ document.querySelector('#save').onclick=function(e)
 {
     e.preventDefault();
     let block = false;
-    let inputs =document.querySelectorAll('input');
+    let inputs =document.querySelectorAll('.form-control');
+
     for (input of inputs)
     {
+       
         if(input.value =="")
         {
          input.style.background = 'red';
          block = true;
+         
             
         }
     }
 
-
-
-
-    // test 
-
-
- 
-
-  
-       // let index = toDataURL(linkToApi).value.indexOf(',');
-        //let image64 =toDataURL(linkToApi).value.substring(index + 1);
-
- 
- 
-  //console.log(document.querySelector('input[type=file]').files[0].name);
-/*let base64 ;
-  toDataURL(document.querySelector('input[type=file]').files[0].name)
-    .then(dataUrl => {
-        base64 = dataUrl
-        
-      //console.log('RESULT:', dataUrl)
-    })
-    */
     
-
-   //document.querySelector("#formFileLg").addEventListener("click", readFile);
-    
-    
-//let image64;// 
-
-
-
-//block = true
-/*const toDataURL = url =>  fetch(url)
-.then(response => response.blob())
-.then(blob => new Promise((resolve, reject) => {
-  const reader = new FileReader()
-  reader.onloadend = () => resolve(reader.result)
-  reader.onerror = reject
-  reader.readAsDataURL(blob)
-})).then((data)=>{
-    let index = data.indexOf(',')
-    var image64 = data.substring(index+1)
-    
-})*/
-
-    //let image64;
-   // toDataURL(linkToApi);
-
-
-   // files addEventlisteener
-  
-/*let image64;
-
-function readFile(files) {
-    //console.log(files)
-    if (!files || !files[0]) return;
-    const FR = new FileReader();
-
-     FR.addEventListener("load", function(evt) {
-        //console.log(evt);
-        let index = evt.target.result.indexOf(',');
-         image64 = evt.target.result.substring(index + 1);
-        
-    });
-    FR.readAsDataURL(files[0]);
-
-    
-}
-readFile(document.getElementById("formFileLg").files);
-console.log(image64);*/
-//document.getElementById("formFileLg").addEventListener("change", readFile);
-
 let imageBase64;
 
    
@@ -195,30 +125,24 @@ const toDataURL = url => fetch(url)
     reader.onerror = reject
     reader.readAsDataURL(blob)
   }))
+  
 
-    //block = true;
+
     if(block == false)
     {
         let firstname = document.querySelector('#nameHeroes').value;
         let shortDescription = document.querySelector('#shortDescription').value;
-        let longDescription = document.querySelector('#description').innerHTML;
+        //let longDescription = document.querySelector('#description').innerHTML;
      
-      
+        
      
 toDataURL(document.querySelector('input[type=file]').files[0].name)
 .then(dataUrl => {
    
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
-        
-        editor.then( editor => {
-          //editor.model.document.on('change:data', (evt, data) => { 
-           
-              //document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
-          //});
-        
-      
 
+        editor.then(editor=>{
 
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
@@ -237,27 +161,14 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
             }) 
             });
             const content = await rawResponse.json();
-          
+            
           })();
         })
-    } )
-      
+        })
+
     }
 
 }
-/*let icons = document.querySelectorAll('i');
-for(icon of icons )
-{
-  console.log(icon)
-  icon.onclick = function(e)
-  {
-    e.preventDefault();
-    let value = icon.getAttribute('data-value');
-    document.execCommand('bold')
-    //document.exeCommand(value);
-   
-  }
-}
-*/
+
 
 
