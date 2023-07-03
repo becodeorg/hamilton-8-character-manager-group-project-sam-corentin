@@ -22,6 +22,20 @@ function blocker(e,id,valueMax)
     } 
 }
 
+
+  
+let  editor =ClassicEditor
+.create( document.querySelector( '#description' ) )
+editor.then( editor => {
+  editor.model.document.on('change:data', (evt, data) => { 
+     data =editor.getData();
+      document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
+  });
+
+} )
+
+   
+    
 document.querySelector('#nameHeroes').onkeyup = function(e)
 {
 
@@ -182,10 +196,6 @@ const toDataURL = url => fetch(url)
     reader.readAsDataURL(blob)
   }))
 
-
-
-
-
     //block = true;
     if(block == false)
     {
@@ -201,7 +211,14 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
         
-  
+        editor.then( editor => {
+          //editor.model.document.on('change:data', (evt, data) => { 
+           
+              //document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
+          //});
+        
+      
+
 
         (async () => {
             const rawResponse = await fetch(linkToApi+ "characters", {
@@ -213,7 +230,7 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
               body:JSON.stringify({
                 name: firstname,
                 shortDescription:shortDescription,
-                description : longDescription,
+                description :  editor.getData(),
                 image : image64
 
 
@@ -221,14 +238,14 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
             });
             const content = await rawResponse.json();
           
-            console.log(content);
           })();
         })
+    } )
       
     }
 
 }
-let icons = document.querySelectorAll('i');
+/*let icons = document.querySelectorAll('i');
 for(icon of icons )
 {
   console.log(icon)
@@ -241,6 +258,6 @@ for(icon of icons )
    
   }
 }
-
+*/
 
 

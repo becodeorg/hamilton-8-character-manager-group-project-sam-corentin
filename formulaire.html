@@ -65,26 +65,18 @@
     <script src="formulaire.js"></script>
     <script>
      
-      let data ;
-
-    
-
-
-
-let  editor =ClassicEditor
-    .create( document.querySelector( '#description' ) )
-
-   
-        editor.then( editor => {
-            editor.model.document.on('change:data', (evt, data) => { 
-                document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
-            });
-       
-        } )
-    
-
-
-
+     
+     /*let  editor =ClassicEditor
+      .create( document.querySelector( '#description' ) )
+  
+     
+          editor.then( editor => {
+              editor.model.document.on('change:data', (evt, data) => { 
+                data=editor.getData();
+                  document.querySelector('#longDescriptionNumberMax').innerHTML = editor.getData().length       
+              });
+         
+          } )*/
     </script>
 </body>
 </html>
