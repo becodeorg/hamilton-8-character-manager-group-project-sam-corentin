@@ -1,3 +1,31 @@
+function createElements(container,elements,data){
+    for (element of elements)
+    {
+        let child = document.createElement(element)
+        if(element =='img')
+        {
+            element.classList = 'card-img'
+            child.src = `data:image/png;base64,`+data.image
+        }
+        if(element =='a')
+        {
+            element.classList = 'btn btn-primary'
+            child.textContent = 'Learn More'  
+
+        }
+        if(element =='h3')
+        {
+            element.innerText = data.name
+           
+        }
+        if(element == 'p'){
+            child.innerText = data.shortDescription
+        }
+        container.appendChild(child)
+    }
+}
+
+
 document.querySelector('#search').onclick = function(e)
 {
  let valeur = document.querySelector('#searchBar').value;
@@ -7,22 +35,8 @@ document.querySelector('#search').onclick = function(e)
     .then(datas => {
         for (data of datas){
             const div = document.createElement('div');
-            const image = document.createElement('img');
-            const name = document.createElement('h3');
-            const species = document.createElement('p');
-            const btnMore = document.createElement('a');    
-            const imgBase = data.image
-            div.classList = 'card col-4'
-            image.classList = 'card-img'
-            btnMore.classList = 'btn btn-primary'    
-            image.src = `data:image/png;base64,`+data.image
-            name.innerText = data.name
-            species.innerText = data.shortDescription
-            btnMore.textContent = 'Learn More'    
-            div.appendChild(image)
-            div.appendChild(name)
-            div.appendChild(species)
-            div.appendChild(btnMore)
+            createElements(div,['img','h3','a','p'],data)
+            div.classList = 'card col-4'   
             cardsContainer.appendChild(div)
         }
     });
@@ -36,8 +50,6 @@ document.querySelector('#search').onclick = function(e)
     let value  =document.querySelector('#searchBar').value
     let container =document.querySelector('#cardContainer')
    
-
-
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
