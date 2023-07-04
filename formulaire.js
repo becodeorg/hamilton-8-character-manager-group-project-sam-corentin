@@ -1,17 +1,11 @@
 let linkToApi = "https://character-database.becode.xyz/";
-
+let postID =(new URLSearchParams(window.location.search)).get('id');
 
 function blocker(e,id,valueMax)
 {
   
     let element = e.currentTarget;
     let value ;
-    /*if(id == "longDescriptionNumberMax")
-    {   
-         value = element.innerHTML
-    }else{
-         value = element.value;
-    }*/
    
     document.querySelector('#'+id).innerHTML =value.length;
     if(value.length>valueMax)
@@ -90,12 +84,44 @@ function readFile() {
     FR.readAsDataURL(this.files[0]);
     
 }
+ 
 
+function renderOneCharacter(data)
+{
+   console.log('passe')
+    document.querySelector('#nameHeroes').value = data.name
+    document.querySelector('#shortDescription').value = data.shortDescription;
+   editor.then(editor=>editor.setData(data.description))
+   document.querySelector('input[type=file]').innerHTML = `data:image/png;base64`+data.image
+}
 
+if(postID!=null){
+    fetch(linkToApi+'characters/'+postID)
+    .then(response => response.json())
+    .then(data => renderOneCharacter(data));
+
+   
+
+    let fullName =  document.querySelector('#nameHeroes').value;
+    let shortDescription =document.querySelector('#shortDescription').value;
+   
+}
 
 document.querySelector('#save').onclick=function(e)
 {
     e.preventDefault();
+    const toDataURL = url => fetch(url)
+  .then(response => response.blob())
+  .then(blob => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsDataURL(blob)
+  }))
+  
+    if(postID == null){
+        
+  
     let block = false;
     let inputs =document.querySelectorAll('.form-control');
 
@@ -116,15 +142,6 @@ let imageBase64;
    
 
    
-const toDataURL = url => fetch(url)
-  .then(response => response.blob())
-  .then(blob => new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onloadend = () => resolve(reader.result)
-    reader.onerror = reject
-    reader.readAsDataURL(blob)
-  }))
-  
 
 
 
@@ -138,10 +155,10 @@ const toDataURL = url => fetch(url)
      
 toDataURL(document.querySelector('input[type=file]').files[0].name)
 .then(dataUrl => {
-   
+    
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
-
+        
 
         editor.then(editor=>{
 
@@ -169,6 +186,46 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
 
     }
 
+    }else{
+       
+        
+       /* let firstname = ;
+        let shortDescription = document.querySelector('#shortDescription').value;
+        */
+        const newCharacter = {
+          name: document.querySelector('#nameHeroes').value ,
+          shortDescription: document.querySelector('#shortDescription').value,
+         // image: inputImage,
+          //description:editor.getData()  ,
+        }
+   
+      //Vérification que les étapes précédentes fonctionnent
+        //console.log(newCharacter) //ok
+        toDataURL(document.querySelector('input[type=file]').files[0].name)
+        .then(dataUrl => {
+            
+                let index = dataUrl.indexOf(',');
+                image64 = dataUrl.substring(index + 1);
+                let firstname = document.querySelector('#nameHeroes').value;
+                let shortDescription = document.querySelector('#shortDescription').value;
+        editor.then(editor=>{
+        fetch("https://character-database.becode.xyz/characters/" + postID, {
+          method: "PUT",
+          //Le header défini que les données qu'on envoi seront en format JSON (metadata, complément d'information à destination de l'API)
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body:JSON.stringify({
+            name:firstname ,
+            shortDescription:shortDescription,
+            description :  editor.getData(),
+            image : image64,
+        })
+      })
+    })
+    })
+
+    }
 }
 
 

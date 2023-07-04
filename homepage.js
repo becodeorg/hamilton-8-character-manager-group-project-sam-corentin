@@ -7,9 +7,6 @@ fetch(apiUrl)
 
 
 
-
-
-
 function renderCharacters(characters) {
     characters.forEach(character => {    
         const div = document.createElement('div');
