@@ -44,7 +44,7 @@ fetch(`https://character-database.becode.xyz/characters/`+id)
     buttonEdit.classList.add("btn", "btn-outline-success", "w-25", "me-5");
     buttonEdit.textContent="Edit";
     formButtons.append(buttonEdit);
-    buttonEdit.href="EditPage.html?id="+id;
+    buttonEdit.href="formulaire.html?id="+id;
 
     const buttonDelete = document.createElement("a");
     buttonDelete.textContent = "Delete";
