@@ -71,6 +71,7 @@ let image64;
 
  
 
+
 function renderOneCharacter(data)
 {
     document.querySelector('#nameHeroes').value = data.name
@@ -131,7 +132,54 @@ document.querySelector('#save').onclick=function(e)
                 insert(dataUrl); 
             })
 
+
         }
+
+   
+
+   
+
+
+
+    if(block == false)
+    {
+        let firstname = document.querySelector('#nameHeroes').value;
+        let shortDescription = document.querySelector('#shortDescription').value;
+        //let longDescription = document.querySelector('#description').innerHTML;
+     
+        
+     
+toDataURL(document.querySelector('input[type=file]').files[0].name)
+.then(dataUrl => {
+    
+         let index = dataUrl.indexOf(',');
+        image64 = dataUrl.substring(index + 1);
+        editor.then(editor=>{
+
+        (async () => {
+            const rawResponse = await fetch(linkToApi+ "characters", {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body:JSON.stringify({
+                name: firstname,
+                shortDescription:shortDescription,
+                description :  editor.getData(),
+                image : image64
+
+
+            }) 
+            });
+            const content = await rawResponse.json();
+            
+          })();
+        })
+        })
+
+    }
+
 
     }else{
        
