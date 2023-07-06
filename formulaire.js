@@ -86,6 +86,7 @@ function readFile() {
 }
  
 
+
 function renderOneCharacter(data)
 {
    console.log('passe')
@@ -158,8 +159,6 @@ toDataURL(document.querySelector('input[type=file]').files[0].name)
     
          let index = dataUrl.indexOf(',');
         image64 = dataUrl.substring(index + 1);
-        
-
         editor.then(editor=>{
 
         (async () => {
